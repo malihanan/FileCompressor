@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../static/main.css">
+</head>
+
+<body class="jumbotron"><!--  style="background-color: #504746" -->
+    <div class="container p-5 my-3 bg-light border">
+        <h2>File Compressor</h2>
+        <form method="POST" enctype="multipart/form-data" action="/" class="form" style="padding: 20px 0px 40px 0px;">
+            <label for="file" class="mr-sm-3">Browse File:</label>
+            <input type="file" name="file" id="file" class="btn btn-primary" required/>
+
+            <div class="mt-sm-3">
+                <label for="algo" class="mr-sm-5">Select the Algorithm:</label>
+                <select name="algo" id="algo" (change)="stateChanged($event)" class="btn btn-primary" required>
+                    <option selected value="huffman"> Huffman </option>
+                    <option value="shannon"> Shannon </option>
+                    <option value="lzw"> LZW </option>
+                    <option value="lzss"> LZSS </option>
+                </select>
+            </div>
+
+            <div class="form-check mt-sm-3">
+                <input class="form-check-input" type="radio" name="action" id="compress" value="compress" checked>
+                <label class="form-check-label" for="compress">
+                    Compress
+                </label>
+            </div>
+            <div class="form-check mb-sm-3">
+                <input class="form-check-input" type="radio" name="action" id="decompress" value="decompress">
+                <label class="form-check-label" for="decompress">
+                    Decompress
+                </label>
+            </div>
+
+            <input type="submit" value="Upload" class="mt-sm-3 btn btn-primary"/>
+        </form>
+    </div>
+</body>
+
+</html>
