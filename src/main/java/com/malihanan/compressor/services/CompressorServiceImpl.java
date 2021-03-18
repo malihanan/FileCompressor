@@ -58,9 +58,9 @@ public class CompressorServiceImpl implements CompressorService {
                 }
                 out_file = decompressor.decompress();
             }
+        } finally {
+            System.out.println("Deleted " + in_file.getAbsolutePath() + " : " + in_file.delete());
         }
-
-        System.out.println("Deleted " + in_file.getAbsolutePath() + " : " + in_file.delete());
         return out_file;
     }
 
@@ -69,7 +69,8 @@ public class CompressorServiceImpl implements CompressorService {
         try(FileInputStream fis = new FileInputStream(file)) {
             fis.transferTo(out);
             out.flush();
+        } finally {
+            System.out.println("Deleted " + file.getAbsolutePath() + " : " + file.delete());
         }
-        System.out.println("Deleted " + file.getAbsolutePath() + " : " + file.delete());
     }
 }
