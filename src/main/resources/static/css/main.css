@@ -1,47 +1,40 @@
-/* dark purple theme */
 :root {
-    --bg: #30343F;
-    --cnt-bg: #FAFAFF;
-    --ip-bg: #E4D9FF;
-    --txt-clr: #1E2749;
-    --hl-clr: #273469;
+    --bg: #6464B2;
+    --cnt-bg: #F9CDE3;
+    --ip-bg: #A9D6DA;
+    --txt-clr: #6464B2;
+    --hl-clr: #F8F7F8;
 }
-
-/* light purple theme */
-/*:root {*/
-/*    --txt-clr: #071108;*/
-/*    --bg: #BFB1C1;*/
-/*    --cnt-bg: #C7DBE6;*/
-/*    --ip-bg: #B5BEC6;*/
-/*    --hl-clr: #364652;*/
-/*}*/
-
-/* salmon green theme */
-/*:root {*/
-/*    --txt-clr: #1E1E24;*/
-/*    --bg: #457B9D;*/
-/*    --cnt-bg: #F1FAEE;*/
-/*    --ip-bg: #FB9F89;*/
-/*    --hl-clr: #21A179;*/
-/*}*/
 
 .base {
     background-color: var(--bg);
     color: var(--txt-clr);
     padding-left: 50px;
     padding: 40px;
-    font-size: 20px;
+    font-size: 16px;
+    font-family: "Press Start 2P", sans-serif;
 }
 
 .title {
-    font-family: "Georgia", Times, serif;
-    font-weight: bold;
+    padding-bottom: 20px;
 }
 
 .container {
     background-color: var(--cnt-bg);
-    border-radius: 15px;
     margin-top: 30px;
+}
+
+.close-container {
+    background-color: var(--ip-bg);
+    color: var(--txt-clr)
+}
+
+.close-icon {
+    background-color: pink;
+    padding: 4px 7px;
+    border-right: 10px solid var(--bg);
+    position: relative;
+    right: 15px;
 }
 
 input[type=file] {
@@ -49,51 +42,46 @@ input[type=file] {
     width: 100%;
     min-width: 250px;
     border: 0px solid;
-    border-radius: 15px;
     background-color: var(--ip-bg);
+    border: 5px solid var(--bg);
 }
 
 select {
     overflow: hidden;
     padding: 20px;
-    border: 0px solid;
-    border-radius: 15px;
+    border: 5px solid var(--bg);
     background-color: var(--ip-bg);
     width: 100%;
     min-width: 250px;
     text-align: center;
 }
-select:active {
-    border: 0px solid var(--txt-clr);
-}
 
 option {
     padding: 5px;
     width: 100%;
+    color: var(--bg);
 }
 option:hover {
     background-color: var(--hl-clr);
-    color: var(--cnt-bg);
+    color: var(--bg);
 }
 
 .convert-button {
-    width: 100%;
-    background-color: var(--cnt-bg);
-    border: 2px solid var(--hl-clr);
-    border-radius: 10px;
-    color: var(--hl-clr);
-    padding: 10px 32px;
+    background-color: var(--ip-bg);
+    color: var(--txt-clr);
+    border: 5px solid var(--bg);
+    padding: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin-top: 30px;
     transition-duration: 0.4s;
     cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .convert-button:hover {
     background-color: var(--hl-clr);
-    color: var(--cnt-bg);
     text-decoration: none;
 }
 
@@ -128,17 +116,22 @@ option:hover {
     height: 30px;
     width: 30px;
     background-color: var(--ip-bg);
-    border-radius: 50%;
+    /*border-radius: 50%;*/
 }
 
 /* On mouse-over, add a grey background color */
 .radio-container:hover input ~ .checkmark {
-    background-color: var(--txt-clr);
+    background-color: var(--bg);
 }
 
 /* When the radio button is checked, add a blue background */
 .radio-container input:checked ~ .checkmark {
-    background-color: var(--hl-clr);
+    background-color: var(--ip-bg);
+}
+
+.radio-label {
+    position: relative;
+    top: 4px;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -155,10 +148,9 @@ option:hover {
 
 /* Style the indicator (dot/circle) */
 .radio-container .checkmark:after {
-    top: 9px;
-    left: 9px;
+    top: 8.5px;
+    left: 8.5px;
     width: 12px;
     height: 12px;
-    border-radius: 50%;
-    background: var(--cnt-bg);
+    background: var(--bg);
 }
