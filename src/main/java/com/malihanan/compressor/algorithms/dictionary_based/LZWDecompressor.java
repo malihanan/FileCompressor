@@ -3,6 +3,7 @@ package com.malihanan.compressor.algorithms.dictionary_based;
 import com.malihanan.compressor.algorithms.Decompressor;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class LZWDecompressor implements Decompressor {
         System.out.println("\nDecompressing '" + file.getName() + "'...");
 
         try (FileInputStream fis = new FileInputStream(file);
-             InputStreamReader isr = new InputStreamReader(fis, "UTF_16BE");
+             InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
              BufferedReader reader =  new BufferedReader(isr);
              FileWriter fw = new FileWriter(out_file);
              BufferedWriter writer = new BufferedWriter(fw)) {

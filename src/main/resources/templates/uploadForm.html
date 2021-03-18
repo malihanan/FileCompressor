@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>File Compressor</title>
+
+<!--    <link rel="stylesheet" href="./../static/css/main.css">-->
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./../static/main.css">
 </head>
 
-<body class="jumbotron"><!--  style="background-color: #504746" -->
-    <div class="container p-5 my-3 bg-light border">
-        <h2>File Compressor</h2>
+<body class="base">
+    <div class="container p-5">
+        <h2 class="title">File Compressor</h2>
         <form method="POST" enctype="multipart/form-data" action="/" class="form" style="padding: 20px 0px 40px 0px;">
-            <label for="file" class="mr-sm-3">Browse File:</label>
-            <input type="file" name="file" id="file" class="btn btn-primary" required/>
+            <!-- <label for="file" class="mr-sm-3">Browse File:</label> -->
 
-            <div class="mt-sm-3">
-                <label for="algo" class="mr-sm-5">Select the Algorithm:</label>
-                <select name="algo" id="algo" (change)="stateChanged($event)" class="btn btn-primary" required>
-                    <option selected value="huffman"> Huffman </option>
-                    <option value="shannon"> Shannon </option>
-                    <option value="lzw"> LZW </option>
-                    <option value="lzss"> LZSS </option>
-                </select>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="file" name="file" id="file" required/> <br/>
+
+                        <div class="radio-buttons">
+                            <label class="radio-container">Compress
+                                <input type="radio" checked="checked" name="action" value="compress">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container"><p>Decompress</p>
+                                <input type="radio" name="action" value="decompress">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <!-- <h4>Algorithm:</h4> -->
+                        <!-- <label for="algo" class="mr-sm-5">Select the Algorithm:</label> -->
+                        <select name="algo" id="algo" size=4 required>
+                            <option selected value="huffman"> Huffman </option>
+                            <option value="shannon"> Shannon Fano </option>
+                            <option value="lzw"> LZW </option>
+                            <option value="lzss"> LZSS </option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-check mt-sm-3">
-                <input class="form-check-input" type="radio" name="action" id="compress" value="compress" checked>
-                <label class="form-check-label" for="compress">
-                    Compress
-                </label>
-            </div>
-            <div class="form-check mb-sm-3">
-                <input class="form-check-input" type="radio" name="action" id="decompress" value="decompress">
-                <label class="form-check-label" for="decompress">
-                    Decompress
-                </label>
-            </div>
-
-            <input type="submit" value="Upload" class="mt-sm-3 btn btn-primary"/>
+            <input type="submit" value="Convert" class="mt-sm-3 convert-button"/>
         </form>
     </div>
 </body>

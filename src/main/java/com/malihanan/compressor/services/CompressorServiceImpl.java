@@ -10,6 +10,7 @@ import com.malihanan.compressor.algorithms.statistical.StatisticalCompressor;
 import com.malihanan.compressor.algorithms.statistical.StatisticalDecompressor;
 import com.malihanan.compressor.algorithms.statistical.HuffmanCompressor;
 import com.malihanan.compressor.algorithms.statistical.ShannonCompressor;
+import com.malihanan.compressor.exceptions.InvalidExtensionException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,11 +39,21 @@ public class CompressorServiceImpl implements CompressorService {
                 out_file = compressor.compress();
             } else if (action.equals("decompress")) {
                 Decompressor decompressor = null;
-                if (algo.equals("huffman") || algo.equals("shannon")) {
+                if (algo.equals("huffman")) {
+                    if (!in_file.getName().endsWith(".hzip"))
+                        throw new InvalidExtensionException("File should be of type .hzip");
+                    decompressor = new StatisticalDecompressor(in_file);
+                } else if (algo.equals("shannon")) {
+                    if (!in_file.getName().endsWith(".szip"))
+                        throw new InvalidExtensionException("File should be of type .szip");
                     decompressor = new StatisticalDecompressor(in_file);
                 } else if (algo.equals("lzw")) {
+                    if (!in_file.getName().endsWith(".lzwzip"))
+                        throw new InvalidExtensionException("File should be of type .lzwzip");
                     decompressor = new LZWDecompressor(in_file);
                 } else if (algo.equals("lzss")) {
+                    if (!in_file.getName().endsWith(".lzsszip"))
+                        throw new InvalidExtensionException("File should be of type .lzsszip");
                     decompressor = new LZSSDecompressor(in_file);
                 }
                 out_file = decompressor.decompress();

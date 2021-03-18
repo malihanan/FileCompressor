@@ -3,6 +3,7 @@ package com.malihanan.compressor.algorithms.dictionary_based;
 import com.malihanan.compressor.algorithms.Compressor;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class LZWCompressor implements Compressor {
         try (FileInputStream fis = new FileInputStream(file);
              BufferedInputStream bis =  new BufferedInputStream(fis);
              FileOutputStream fos = new FileOutputStream(out_file);
-             OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF_16BE");
+             OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
              BufferedWriter writer = new BufferedWriter(osw)) {
 
             if ((cur_byte = bis.read()) != -1) {

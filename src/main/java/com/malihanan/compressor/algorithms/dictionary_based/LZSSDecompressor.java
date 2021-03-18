@@ -5,6 +5,7 @@ import com.malihanan.compressor.algorithms.bit_io.BitInputStream;
 import com.malihanan.compressor.algorithms.bit_io.BitOutputStream;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class LZSSDecompressor implements Decompressor {
 
@@ -28,7 +29,7 @@ public class LZSSDecompressor implements Decompressor {
              BitInputStream in = new BitInputStream(fis);
              FileWriter fw = new FileWriter(out_file);
              BufferedWriter writer = new BufferedWriter(fw);
-             RandomAccessFile rand_in = new RandomAccessFile(out_file, "rw")) {
+             RandomAccessFile rand_in = new RandomAccessFile(out_file, "r")) {
 
             boolean sequenced;
             long start, i=0;
