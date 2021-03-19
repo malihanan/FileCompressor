@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Compressor</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="base">
+<div class="container pt-3 pl-0 pr-0 box">
+    <div class="title-container">
+        <span class="circle red-circle"></span>
+        <span class="circle yellow-circle"></span>
+        <span class="circle green-circle"></span>
+        <span class="title-text">File Compressor</span>
+        <span class="title-button"><a href="/" class="ratioLink">Go to Home</a><br/></span>
+    </div>
+    <!-- <h3 class="title">File Compressor</h3> -->
+    <hr class="top-border">
+    <div class="pt-3 pl-5 pr-5 pb-5">
+
+        <p>
+            This is a File Compressor implementing 5 <strong>Lossless</strong> Compression Algorithms:
+        <li>Huffman</li>
+        <li>Shannon Fano</li>
+        <li>Lempel–Ziv–Welch (LZW)</li>
+        <li>Lempel–Ziv–Storer–Szymanski (LZSS)</li>
+        <li>Deflate (LZSS + Huffman)</li>
+        <br>
+        <strong>Huffman</strong> & <strong>Shannon Fano</strong> are <strong>statistical</strong> compression algorithms. They use the frequency of the characters to reduce redundancy in the data. They differ in implementation by using different methods to form a binary tree. Both of these use <strong>variable length encoding</strong> (a character that occurs more times gets a smaller code). These codes are <strong>prefix codes</strong>.
+        <br><br>
+        <strong>LZW</strong> & <strong>LZSS</strong> are <strong>dictionary based</strong> compression algorithms. They use the repetition in data to reduce redundancy. In case of LZW we can theoretically have an infinitely long dictionary encoding every sequence that we encounter with the hope that it occurs again & we can reuse the code. <br>
+        LZSS has a concept of <strong>sliding window</strong>, i.e. we only search for a sequence in recent x characters instead of searching in the entire file (recent data is more probable to be repeated). When we find a repeated sequence, we encode the current sequence as a (length, starting point) pair where length is the length of repeating sequence & starting point is the index where the sequence occured before. It can have many variations depending on the size of this window or whether we allow repetition of overlapping sequences. This Compressor does not allow overlapping repeated sequences and uses a window size of length 256 so that the length & starting index (stored as a difference from the current point) can be stored as bytes.
+        <br><br>
+        <strong>Deflate</strong> is the algorithm that is used in <strong>gzip</strong> and the universal <strong>zip</strong> algorithm. It is a combination of LZSS & Huffman. LZSS is not very efficient individually for normal data (in case of a lot of repetitions it works very well giving above 95% compression ratio). It uses the fact that with LZSS as we have the window size fixed, we will only have the length & indexes in a certain range (in our case, bytes itself). These can thus be treated as characters for our Huffman compressor reducing the file size tremendously as compared to only LZSS.
+        <br><br>
+        The implementation of LZSS searches for a match almost sequentially which is why it can slow down for large files. The efficiency can still be improved. If the necoding is given more focus too, the compression ratio can still be improved.
+        <br><br>
+        Text files with <strong>UTF_8</strong> encoding work well with this compressor.
+        <br><br>
+        <h5>Compression Ratio for the book Pride & Prejudice (Original Size: 767 KB):</h5>
+        <table class="table table-hover table-bordered mt-3">
+            <tr>
+                <td><strong>Algorithm</strong></td>
+                <td><strong>File Size</strong></td>
+                <td><strong>Compression Ratio</strong></td>
+            </tr>
+            <tr>
+                <td>Huffman</td>
+                <td>415 KB</td>
+                <td>45.81 %</td>
+            </tr>
+            <tr>
+                <td>Shannon</td>
+                <td>424 KB</td>
+                <td>44.68 %</td>
+            </tr>
+            <tr>
+                <td>LZW</td>
+                <td>281 KB</td>
+                <td>63.34 %</td>
+            </tr>
+            <tr>
+                <td>LZSS</td>
+                <td>611 KB</td>
+                <td>20.35 %</td>
+            </tr>
+            <tr>
+                <td>Deflate</td>
+                <td>549 KB</td>
+                <td>28.32 %</td>
+            </tr>
+        </table>
+        Get the code: <a href="https://github.com/malihanan/FileCompressor" target="_blank">github.com/malihanan/FileCompressor</a>
+        </p>
+    </div>
+</div>
+</body>
+
+</html>

@@ -16,7 +16,7 @@ public class MainController {
 
     private final CompressorService compressorService;
 
-    double ratio;
+    double ratio = -1;
 
     @ModelAttribute("ratio")
     public String ratio() {
@@ -31,6 +31,11 @@ public class MainController {
     @GetMapping("/")
     public String upload(Model model) {
         return "uploadForm";
+    }
+
+    @GetMapping("/info")
+    public String getInfo(Model model) {
+        return "info";
     }
 
     @PostMapping("/")

@@ -5,29 +5,29 @@
     <title>Error</title>
 
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="base">
-<a href="/" style="text-decoration: none;">
-    <div class="container close-container">
-        <div style="margin-left: 0px;">
-            <i class="fa fa-times close-icon" style="font-size: 24px;"></i>
-            Go to Home
+<div class="container pt-3 pl-0 pr-0 box">
+    <div class="title-container">
+        <span class="circle red-circle"></span>
+        <span class="circle yellow-circle"></span>
+        <span class="circle green-circle"></span>
+        <span class="title-text">File Compressor</span>
+        <span class="title-button"><a href="/" class="ratioLink">Go to Home</a><br/></span>
+    </div>
+    <hr class="top-border">
+    <div class="pt-3 pl-5 pr-5 pb-5">
+        <h2 style="color: indianred">Error!</h2>
+        <div th:if="${message}">
+            <p th:text="${message}"/>
+        </div>
+        <div th:unless="${message}">
+            <p>Something went wrong :(</p>
         </div>
     </div>
-</a>
-<div class="container p-5">
-    <h2 class="title" style="color: indianred">Error!</h2>
-
-    <div th:if="${message}">
-        <p th:text="${message}"/>
-    </div>
-    <div th:unless="${message}">
-        <p>Something went wrong :(</p>
-    </div>
-    </p>
 </div>
 </body>
 </html>

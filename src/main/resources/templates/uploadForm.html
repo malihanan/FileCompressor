@@ -5,51 +5,64 @@
     <title>File Compressor</title>
 
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body class="base">
-<div class="container p-5">
-    <h3 class="title">File Compressor</h3>
-    <form method="POST" enctype="multipart/form-data" action="/" class="form" style="padding: 20px 0px 40px 0px;">
-        <div class="row">
-            <div class="col">
-                <input type="file" name="file" id="file" required/> <br/>
-
-                <div class="radio-buttons">
-                    <label class="radio-container"><span class="radio-label">Compress</span>
-                        <input type="radio" checked="checked" name="action" value="compress">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="radio-container"><span class="radio-label">Decompress</span>
-                        <input type="radio" name="action" value="decompress">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-
-            </div>
-            <div class="col">
-                <select name="algo" id="algo" size=5 required>
-                    <option selected value="huffman"> Huffman </option>
-                    <option value="shannon"> Shannon Fano </option>
-                    <option value="lzw"> LZW </option>
-                    <option value="lzss"> LZSS </option>
-                    <option value="deflate"> Deflate / Inflate </option>
-                </select>
-            </div>
-        </div>
-
-        <button type="submit" class="convert-button">
-            Convert <i class="fa fa-file-archive-o" style="font-size: 24px"></i>
-        </button>
-    </form>
-
-    <a href="/" class="ratioLink">Get Ratio</a><br/>
-    <div th:if="${ratio}" style="margin-top: 10px">
-        <span>Compression Ratio: </span><span th:text="${ratio}"/><span> %</span>
+<div class="container pt-3 pl-0 pr-0 box">
+    <div class="title-container">
+        <span class="circle red-circle"></span>
+        <span class="circle yellow-circle"></span>
+        <span class="circle green-circle"></span>
+        <span class="title-text">File Compressor</span>
     </div>
+    <hr class="top-border">
+    <div class="pt-3 pl-5 pr-5 pb-5">
+        <form method="POST" enctype="multipart/form-data" action="/" class="form" style="padding: 20px 0px 40px 0px;">
+            <div class="row">
+                <div class="col">
+                    <input type="file" name="file" id="file" class="line-border" required/> <br/>
+
+                    <div class="radio-buttons">
+                        <label class="radio-container"><span class="radio-label">Compress</span>
+                            <input type="radio" checked="checked" name="action" value="compress">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-container"><span class="radio-label">Decompress</span>
+                            <input type="radio" name="action" value="decompress">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <select name="algo" id="algo" size=5 class="line-border" required>
+                        <option selected value="huffman"> Huffman </option>
+                        <option value="shannon"> Shannon Fano </option>
+                        <option value="lzw"> LZW </option>
+                        <option value="lzss"> LZSS </option>
+                        <option value="deflate"> Deflate / Inflate </option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="convert-button">
+                Convert &nbsp;&nbsp;<i class="fa fa-file-archive-o" style="font-size: 24px"></i>
+            </button>
+        </form>
+
+        <a href="/" class="ratioLink">Get Ratio</a><br/>
+        <div th:if="${ratio} != -1" style="margin-top: 10px">
+            <span>Compression Ratio: </span><span th:text="${ratio}"/><span> %</span>
+        </div>
+    </div>
+</div>
+
+<div class="info-container">
+    <a href="/info"><i class="fa fa-info-circle" style="font-size: 24px; color: #999" title="Read about these Algorithms"></i></a>
 </div>
 </body>
 
