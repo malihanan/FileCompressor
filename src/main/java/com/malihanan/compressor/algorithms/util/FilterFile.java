@@ -1,4 +1,4 @@
-package com.malihanan.compressor.algorithms;
+package com.malihanan.compressor.algorithms.util;
 
 import java.io.*;
 

@@ -31,11 +31,12 @@
 
             </div>
             <div class="col">
-                <select name="algo" id="algo" size=4 required>
+                <select name="algo" id="algo" size=5 required>
                     <option selected value="huffman"> Huffman </option>
                     <option value="shannon"> Shannon Fano </option>
                     <option value="lzw"> LZW </option>
                     <option value="lzss"> LZSS </option>
+                    <option value="deflate"> Deflate / Inflate </option>
                 </select>
             </div>
         </div>
@@ -44,6 +45,11 @@
             Convert <i class="fa fa-file-archive-o" style="font-size: 24px"></i>
         </button>
     </form>
+
+    <a href="/" class="ratioLink">Get Ratio</a><br/>
+    <div th:if="${ratio}" style="margin-top: 10px">
+        <span>Compression Ratio: </span><span th:text="${ratio}"/><span> %</span>
+    </div>
 </div>
 </body>
 

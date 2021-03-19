@@ -1,28 +1,22 @@
 package com.malihanan.compressor.algorithms.statistical;
 
-import com.malihanan.compressor.algorithms.Decompressor;
+import com.malihanan.compressor.algorithms.AbstractDecompressor;
 import com.malihanan.compressor.algorithms.bit_io.BitInputStream;
 
 import java.io.*;
 
-public class StatisticalDecompressor implements Decompressor {
-    protected File file;
+public class StatisticalDecompressor extends AbstractDecompressor {
+
     protected String[] hcode = new String[256];
     protected Node root;
     protected long fileSize;
 
     public StatisticalDecompressor(File file) {
-        this.file = file;
+        super(file, "._zip");
     }
 
-    public File decompress() {
-        System.out.println("\nDecompressing '" + this.file.getName() + "'...\n");
-        return readFile();
-    }
-
-    private File readFile() {
-        String decomressedPath = file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - file.getName().length() - 1) + "\\decompressed_" + file.getName().substring(0, file.getName().length() - 5);
-        File out_file = new File(decomressedPath);
+    @Override
+    public void decompress() {
         try (FileInputStream fis = new FileInputStream(file);
              BitInputStream in = new BitInputStream(fis);
              FileOutputStream fos = new FileOutputStream(out_file);
@@ -30,11 +24,7 @@ public class StatisticalDecompressor implements Decompressor {
             root = readTree(in);
             fileSize = in.readLong();
             readContent(in, out);
-            System.out.println("Decompressed - " + decomressedPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return out_file;
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
     private Node readTree(BitInputStream in) throws IOException {

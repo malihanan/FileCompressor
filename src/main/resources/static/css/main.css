@@ -59,11 +59,10 @@ select {
 option {
     padding: 5px;
     width: 100%;
-    color: var(--bg);
+    color: var(--txt-clr);
 }
 option:hover {
     background-color: var(--hl-clr);
-    color: var(--bg);
 }
 
 .convert-button {
@@ -83,6 +82,19 @@ option:hover {
 .convert-button:hover {
     background-color: var(--hl-clr);
     text-decoration: none;
+}
+
+.ratioLink {
+    font-size: 12px;
+    color: var(--txt-clr);
+    padding: 5px;
+    background-color: var(--hl-clr);
+    border: 3px solid var(--bg);
+}
+.ratioLink:hover {
+    background-color: var(--ip-bg);
+    text-decoration: none;
+    color: var(--txt-clr);
 }
 
 .radio-buttons {

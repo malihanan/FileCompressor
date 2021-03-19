@@ -1,5 +1,7 @@
 package com.malihanan.compressor.algorithms.statistical;
 
+import com.malihanan.compressor.algorithms.util.Extensions;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,17 +13,16 @@ public class ShannonCompressor extends StatisticalCompressor {
     private String[] hcode = new String[256];
 
     public ShannonCompressor(File file) {
-        super(file);
+        super(file, Extensions.SHANNON_FANO);
     }
 
-    public File compress() {
-        System.out.println("\nCompressing '" + this.file.getName() + "'...");
-        this.calculateFrequency();
-        this.formNodes();
+    public void compress() {
+        calculateFrequency();
+        formNodes();
         root = this.formTree("", 0, nodes.size() - 1);
-        this.assignCodes(root, "");
-        this.printCodes();
-        return this.writeToFile(".szip");
+        assignCodes(root, "");
+        printCodes();
+        writeToFile();
     }
 
     private void formNodes() {

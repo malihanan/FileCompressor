@@ -1,15 +1,14 @@
 package com.malihanan.compressor.algorithms.statistical;
 
-import com.malihanan.compressor.algorithms.Compressor;
+import com.malihanan.compressor.algorithms.AbstractCompressor;
 import com.malihanan.compressor.algorithms.bit_io.*;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public abstract class StatisticalCompressor implements Compressor {
+public abstract class StatisticalCompressor extends AbstractCompressor {
 
-    protected File file;
     protected long fileSize;
     protected int[] count = new int[256];
     protected String[] hcode = new String[256];
@@ -17,11 +16,9 @@ public abstract class StatisticalCompressor implements Compressor {
 
     public StatisticalCompressor() {}
 
-    public StatisticalCompressor(File file) {
-        this.file = file;
+    public StatisticalCompressor(File file, String extension) {
+        super(file, extension);
     }
-
-    public abstract File compress();
 
     protected void calculateFrequency() {
         try (FileInputStream fis = new FileInputStream(file);
@@ -66,7 +63,20 @@ public abstract class StatisticalCompressor implements Compressor {
         System.out.println("-----+-------+---------\n");
     }
 
-    private void writeTree(BitOutputStream out, Node cur) {
+    protected void writeToFile() {
+        try (FileOutputStream fos = new FileOutputStream(out_file);
+             BitOutputStream bos = new BitOutputStream(fos);
+             FileInputStream fis = new FileInputStream(file);
+             BufferedInputStream bis = new BufferedInputStream(fis)) {
+
+            writeTree(bos, this.root);
+            bos.writeLong(fileSize);
+            writeContent(bis, bos);
+
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    protected void writeTree(BitOutputStream out, Node cur) {
         if (cur.isLeaf()) {
             out.writeBit(true);
             out.writeByte(cur.getByteValue());
@@ -77,7 +87,7 @@ public abstract class StatisticalCompressor implements Compressor {
         writeTree(out, cur.getRight());
     }
 
-    private void writeContent(BufferedInputStream in, BitOutputStream out) throws IOException {
+    protected void writeContent(BufferedInputStream in, BitOutputStream out) throws IOException {
         int b;
         while ((b = in.read()) != -1) {
             String s = hcode[b];
@@ -85,23 +95,5 @@ public abstract class StatisticalCompressor implements Compressor {
                 out.writeBit(s.charAt(i)=='1');
             }
         }
-    }
-
-    protected File writeToFile(String extension) {
-        String compressedPath = file.getAbsolutePath() + extension;
-        File out_file = new File(compressedPath);
-        try (FileOutputStream fos = new FileOutputStream(out_file);
-             BitOutputStream bos = new BitOutputStream(fos);
-             FileInputStream fis = new FileInputStream(file);
-             BufferedInputStream bis = new BufferedInputStream(fis)) {
-
-            writeTree(bos, this.root);
-            bos.writeLong(fileSize);
-            writeContent(bis, bos);
-            System.out.println("Compressed - " + compressedPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return out_file;
     }
 }

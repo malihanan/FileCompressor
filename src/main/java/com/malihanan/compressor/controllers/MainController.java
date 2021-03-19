@@ -16,6 +16,13 @@ public class MainController {
 
     private final CompressorService compressorService;
 
+    double ratio;
+
+    @ModelAttribute("ratio")
+    public String ratio() {
+        return String.format("%.2f", ratio);
+    }
+
     @Autowired
     public MainController(CompressorService compressorService) {
         this.compressorService = compressorService;
@@ -30,11 +37,12 @@ public class MainController {
     public void handleFileUpload(@RequestParam("file") MultipartFile file,
                                  @RequestParam("algo") String algo,
                                  @RequestParam("action") String action,
+                                 Model model,
                                  HttpServletResponse response) throws IOException {
 
         File out_file = compressorService.doAction(file, action, algo);
+        ratio = compressorService.getCompressionRatio(action, file, out_file);
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + out_file.getName() + "\"");
         compressorService.writeToOut(out_file, response.getOutputStream());
-
     }
 }

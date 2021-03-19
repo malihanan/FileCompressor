@@ -1,5 +1,7 @@
 package com.malihanan.compressor.algorithms.statistical;
 
+import com.malihanan.compressor.algorithms.util.Extensions;
+
 import java.io.File;
 import java.util.PriorityQueue;
 
@@ -8,21 +10,20 @@ public class HuffmanCompressor extends StatisticalCompressor {
     private PriorityQueue<Node> minHeap;
 
     public HuffmanCompressor(File file) {
-        super(file);
+        super(file, Extensions.HUFFMAN);
     }
 
     @Override
-    public File compress() {
-        System.out.println("\nCompressing '" + this.file.getName() + "'...");
-        this.calculateFrequency();
-        this.formMinHeap();
-        this.formTree();
-        this.assignCodes(this.root, "");
-        this.printCodes();
-        return this.writeToFile(".hzip");
+    public void compress() {
+        calculateFrequency();
+        formMinHeap();
+        formTree();
+        assignCodes(this.root, "");
+        printCodes();
+        writeToFile();
     }
 
-    private void formMinHeap() {
+    protected void formMinHeap() {
         minHeap = new PriorityQueue<>();
         int i;
         for (i=0; i<256; i++) {
@@ -32,7 +33,7 @@ public class HuffmanCompressor extends StatisticalCompressor {
         }
     }
 
-    private void formTree() {
+    protected void formTree() {
         while (minHeap.size() > 1) {
             Node a = minHeap.poll();
             Node b = minHeap.poll();
