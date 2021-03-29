@@ -54,9 +54,9 @@
             </button>
         </form>
 
-        <a href="/" class="ratioLink">Get Ratio</a><br/>
-        <div th:if="${ratio} != -1" style="margin-top: 10px">
-            <span>Compression Ratio: </span><span th:text="${ratio}"/><span> %</span>
+        <a href="/ratio" class="ratioLink">Get Ratio</a><br/>
+        <div style="margin-top: 10px">
+            <span th:text="${ratio}"/>
         </div>
     </div>
 </div>

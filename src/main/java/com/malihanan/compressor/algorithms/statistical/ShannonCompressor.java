@@ -10,7 +10,6 @@ import java.util.List;
 public class ShannonCompressor extends StatisticalCompressor {
 
     private List<Node> nodes;
-    private String[] hcode = new String[256];
 
     public ShannonCompressor(File file) {
         super(file, Extensions.SHANNON_FANO);
